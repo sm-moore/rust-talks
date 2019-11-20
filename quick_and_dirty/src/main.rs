@@ -6,8 +6,6 @@ mod grocery;
 fn main() {
     let grocery_list = grocery::list();
     println!("Original list: {:?}", grocery_list);
-    let result = merge::merge_sort(grocery_list, 5);
-    println!(" Sorted  list: {:?}", result);
 }
 
 
@@ -36,6 +34,8 @@ fn main() {
 
 
 
+// let result = merge::merge_sort(grocery_list, grocery_list.len());
+// println!(" Sorted  list: {:?}", result);
 
 
 
