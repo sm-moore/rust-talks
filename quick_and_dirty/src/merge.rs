@@ -1,20 +1,20 @@
 
-fn append(from: Vec<i32>, mut from_idx: usize, to:  &mut Vec<i32>) {
+fn append<T: PartialOrd + Clone>(from: Vec<T>, mut from_idx: usize, to:  &mut Vec<T>) {
     while from_idx <= from.len() - 1 {
-        to.push(from[from_idx]);
+        to.push(from[from_idx].clone());
         from_idx += 1;
     }
 }
 
 
-fn merge (mut left: Vec<i32>, right: Vec<i32>) -> Vec<i32> {
-    let mut new: Vec<i32> = Vec::new();
+fn merge<T: PartialOrd + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T> {
+    let mut new: Vec<T> = Vec::new();
     let mut left_idx = 0;
     let mut right_idx = 0;
-    left.push(5);
+
     while new.len() < left.len() + right.len()  {
         while left[left_idx] <= right[right_idx]  {
-            new.push(left[left_idx]);
+            new.push(left[left_idx].clone());
             left_idx += 1;
             if left_idx > left.len() - 1 {
                 append(right, right_idx, & mut new);
@@ -22,7 +22,7 @@ fn merge (mut left: Vec<i32>, right: Vec<i32>) -> Vec<i32> {
             }
         }
         while right[right_idx] <= left[left_idx] {
-            new.push(right[right_idx]);
+            new.push(right[right_idx].clone()); // Point out explicit clone here vs copy
             right_idx += 1;
             if right_idx > right.len() - 1 {
                 append(left, left_idx, & mut new);
@@ -33,11 +33,11 @@ fn merge (mut left: Vec<i32>, right: Vec<i32>) -> Vec<i32> {
     new
 }
 
-pub fn merge_sort(list: Vec<i32>, _unused_length: usize) -> Vec<i32> {
+pub fn merge_sort<T: PartialOrd + Clone>(list: Vec<T>, _unused_length: usize) -> Vec<T> {
    return merge_sort_recur(list);
 }
 
-fn merge_sort_recur(list: Vec<i32>) -> Vec<i32> {
+fn merge_sort_recur<T: PartialOrd + Clone>(list: Vec<T>) -> Vec<T> {
     if list.len() == 1 {
         return list;
     }
