@@ -1,11 +1,24 @@
-
-fn append<T: PartialOrd + Clone>(from: Vec<T>, mut from_idx: usize, to:  &mut Vec<T>) {
-    while from_idx <= from.len() - 1 {
-        to.push(from[from_idx].clone());
-        from_idx += 1;
-    }
+/// Returns a all of the elements provided in list, sorted.
+///
+/// # Arguments
+///
+/// * `list` - A list of elements to sort.
+/// * `_unused_param` - Provided only for demonstration purposes.
+pub fn merge_sort<T: PartialOrd + Clone>(list: Vec<T>, _unused_param: usize) -> Vec<T> {
+    return merge_sort_recur(list);
 }
 
+fn merge_sort_recur<T: PartialOrd + Clone>(list: Vec<T>) -> Vec<T> {
+    if list.len() == 1 {
+        return list;
+    }
+    let mid = (list.len()-1)/2 + 1;
+    // Print me here....
+    let left = merge_sort_recur(list.clone()[0..mid].to_vec()); //left 
+    let right = merge_sort_recur(list.clone()[mid..list.len()].to_vec()); //right 
+    
+    merge(left, right)
+}
 
 fn merge<T: PartialOrd + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T> {
     let mut new: Vec<T> = Vec::new();
@@ -33,22 +46,12 @@ fn merge<T: PartialOrd + Clone>(left: Vec<T>, right: Vec<T>) -> Vec<T> {
     new
 }
 
-pub fn merge_sort<T: PartialOrd + Clone>(list: Vec<T>, _unused_length: usize) -> Vec<T> {
-   return merge_sort_recur(list);
-}
-
-fn merge_sort_recur<T: PartialOrd + Clone>(list: Vec<T>) -> Vec<T> {
-    if list.len() == 1 {
-        return list;
+fn append<T: PartialOrd + Clone>(from: Vec<T>, mut from_idx: usize, to:  &mut Vec<T>) {
+    while from_idx <= from.len() - 1 {
+        to.push(from[from_idx].clone());
+        from_idx += 1;
     }
-    let mid = (list.len()-1)/2 + 1;
-    // Print me here....
-    let left = merge_sort_recur(list.clone()[0..mid].to_vec()); //left 
-    let right = merge_sort_recur(list.clone()[mid..list.len()].to_vec()); //right 
-    
-    merge(left, right)
 }
-
 
 #[cfg(test)]
 mod tests {

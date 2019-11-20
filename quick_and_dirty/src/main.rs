@@ -1,3 +1,5 @@
+#![crate_name = "quick_and_dirty"]
+
 mod merge;
 mod grocery;
 
